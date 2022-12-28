@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-self-compare */
+import React,{ useState } from 'react';
+// import './App.css';
+import UseContext from './component/UseContext';
 
+export const ToggleTheme = React.createContext()
+export const textTheme = React.createContext()
 function App() {
+
+  const [state,setState] = useState(true)
+  const[name,setName]=useState(0)
+  const handleToggle = ()=>{
+    setState(state=>!state)
+  }
+  const hand=()=>{
+    setName(name=>!name)
+  }
+  const [value,change]=useState(0);
+
+
+  const abc= ()=>{
+    change(value+1)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ToggleTheme.Provider value={state}>
+      <textTheme.Provider value={name}>
+        <div className='tog'>
+        <button onClick={handleToggle}>Toggle</button>
+        </div>
+      <UseContext/>
+      <div className='context'>
+      <button onClick={hand}>Component</button>
+      </div>
+      <div className='like'>
+      <div className='value'>{value}</div>
+      <button onClick={abc}>Like</button>
+      </div>
+      
+      </textTheme.Provider>
+      
+    </ToggleTheme.Provider>
+    
   );
 }
 
